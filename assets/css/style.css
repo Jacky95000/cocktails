@@ -1,0 +1,40 @@
+* {
+    margin: 0;
+    margin-bottom: 30px;
+    padding: 0;
+    box-sizing: border-box; 
+    background-color: goldenrod;
+}
+img {
+    width:30%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+}
+a {
+    width:30%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+}
+h1, h2 {
+    width:30%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+}
+.nav-menu {
+    width:30%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+}
+.sidebar-pub {
+    background-color: aqua;
+    width:20%;
+    height: 100vh;
+}

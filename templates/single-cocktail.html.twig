@@ -1,0 +1,33 @@
+{# la page utilise comme modèle 'base.html.twig' #}
+{% extends 'base.html.twig' %}
+{# On remplit le bloc "main" défini dans base.html.twig #}
+{% block main %}
+	<main class="main">
+
+		<h1 class="main-title">Détail d'un cocktail</h1>
+
+				<article class="recipe">
+
+					<h2>{{cocktail.nom}}</h2>
+					<p>{{cocktail.description}} </p>
+					<img class="recipe-image" src="{{cocktail.image}}" alt="{{cocktail.nom}}" />
+					<p>Publié le : {{cocktail.date_creation}}</p>
+
+					<p>Ingrédients :</p>
+
+					<ul>
+
+						{% for ingredient in cocktail.ingredients %}
+
+							<li>{{ingredient}}</li>
+
+						{% endfor %}
+
+					</ul>
+
+				</article>
+
+
+	</main>
+
+	{% endblock main %}

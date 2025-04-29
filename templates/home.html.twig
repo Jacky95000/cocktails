@@ -1,0 +1,16 @@
+{# la page utilise comme modèle 'base.html.twig' #}
+{% extends 'base.html.twig' %}
+
+
+{# On remplit le bloc "main" défini dans base.html.twig #}
+{% block main %}
+	<main class="main">
+
+		<h1 class="main-title">Les trois derniers cocktails</h1>
+
+{% include 'partials/loop-cocktails.html.twig' %}
+
+		
+	</main>
+
+{% endblock main %}

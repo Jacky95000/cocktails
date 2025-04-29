@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Cocktails</title>
+	<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
+
+</head>
+<body>
+
+	<header class="header">
+
+		<img class="logo-header" src="{{ asset('img/logo.png') }}" alt="logo recettes" />
+
+		<nav class="nav-header">
+
+    <ul class="nav-menu">
+    <li><a href="{{ path('list-cocktails') }}" class="nav-link">Accueil</a></li>
+    <li><a href="{{ path('single-cocktail', {'id': 1}) }}" class="nav-link">Liste Cocktail</a></li>
+</ul>
+
+		</nav>
+
+	</header>
