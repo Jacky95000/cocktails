@@ -1,186 +1,46 @@
 <?php
-
+// Déclaration de l'espace de nom (namespace) pour organiser ton code.
 namespace App\Controller;
 
+// On importe le repository des cocktails qui sert à interroger les données.
+use App\Repository\CocktailRepository;
+
+// Classe de base pour les contrôleurs Symfony. Elle fournit des méthodes utiles comme render(), redirectToRoute(), etc.
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+// Annotation pour définir les routes (utilisée avec PHP 8+)
 use Symfony\Component\Routing\Attribute\Route;
-use Symfony\Component\HttpFoundation\Request;
 
 class CocktailController extends AbstractController {
 
-
+// Déclare une route "/cocktails" accessible via la méthode HTTP GET
+	// Elle déclenche l'exécution de la méthode displayListCocktails()
 	#[Route('/cocktails', name: "list-cocktails")]
-	public function displayListCocktails() {
+	public function displayListCocktails(CocktailRepository $cocktailRepository) {
 		
-		$cocktails = [
-			1 => [
-				'id'            => 1,
-				'nom'           => 'Mojito',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg', // photo libre de droits
-				'ingredients'   => [
-					'50 ml de rhum blanc',
-					'½ citron vert (en quartiers)',
-					'2 c.à.c. de sucre de canne',
-					'8 feuilles de menthe fraîche',
-					'Eau pétillante',
-					'Glace pilée'
-				],
-				'date_creation' => '1942-01-01',
-				'description'   => 'Classique cubain ultra-rafraîchissant mêlant menthe et citron vert.'
-			],
-		
-			2 => [
-				'id'            => 2,
-				'nom'           => 'Margarita',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'50 ml de tequila',
-					'25 ml de triple sec (Cointreau)',
-					'25 ml de jus de citron vert frais',
-					'Sel pour givrer le verre',
-					'Glace'
-				],
-				'date_creation' => '1938-07-04',
-				'description'   => 'Tequila, triple-sec et citron vert dans un verre givré de sel pour un équilibre acidulé-salé.'
-			],
-		
-			3 => [
-				'id'            => 3,
-				'nom'           => 'Old Fashioned',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'60 ml de bourbon ou rye whisky',
-					'1 morceau de sucre',
-					'2 traits d’angostura bitters',
-					'Zeste d’orange',
-					'Glaçon gros format'
-				],
-				'date_creation' => '1880-05-15',
-				'description'   => 'Icône des classiques : un whisky subtilement sucré et aromatisé aux bitters.'
-			],
-		
-			4 => [
-				'id'            => 4,
-				'nom'           => 'Piña Colada',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'60 ml de rhum blanc',
-					'90 ml de jus d’ananas',
-					'30 ml de crème de coco',
-					'Glaçons'
-				],
-				'date_creation' => '1954-08-16',
-				'description'   => 'Spécialité portoricaine crémeuse et fruitée à base d’ananas et de coco.'
-			],
-		
-			5 => [
-				'id'            => 5,
-				'nom'           => 'Negroni',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'30 ml de gin',
-					'30 ml de vermouth rouge',
-					'30 ml de Campari',
-					'Zeste d’orange',
-					'Glaçon gros format'
-				],
-				'date_creation' => '1919-06-01',
-				'description'   => 'Amertume élégante et notes d’agrumes pour ce grand classique italien.'
-			],
-		];
+		// On récupère tous les cocktails disponibles via le repository (BDD ou mock)
+		$cocktails = $cocktailRepository->findAll();
 
+		// On rend la vue Twig en lui passant les cocktails à afficher
 		return $this->render('list-cocktails.html.twig', ["cocktails" => $cocktails]);
 
 	}
 
-
+ /**
+     * Cette méthode affiche les détails d’un seul cocktail identifié par son ID dans l’URL.
+     * L'ID est automatiquement injecté en paramètre, et le repository est autowiré.
+     */
 	#[Route('/single-cocktail/{id}', name: "single-cocktail")]
-	public function displaySingleCocktails($id) {
+	public function displaySingleCocktails($id, CocktailRepository $cocktailRepository) {
+		
+		 
+		$cocktail = $cocktailRepository->findOneById($id);
 
-		$cocktails = [
-			1 => [
-				'id'            => 1,
-				'nom'           => 'Mojito',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg', // photo libre de droits
-				'ingredients'   => [
-					'50 ml de rhum blanc',
-					'½ citron vert (en quartiers)',
-					'2 c.à.c. de sucre de canne',
-					'8 feuilles de menthe fraîche',
-					'Eau pétillante',
-					'Glace pilée'
-				],
-				'date_creation' => '1942-01-01',
-				'description'   => 'Classique cubain ultra-rafraîchissant mêlant menthe et citron vert.'
-			],
-		
-			2 => [
-				'id'            => 2,
-				'nom'           => 'Margarita',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'50 ml de tequila',
-					'25 ml de triple sec (Cointreau)',
-					'25 ml de jus de citron vert frais',
-					'Sel pour givrer le verre',
-					'Glace'
-				],
-				'date_creation' => '1938-07-04',
-				'description'   => 'Tequila, triple-sec et citron vert dans un verre givré de sel pour un équilibre acidulé-salé.'
-			],
-		
-			3 => [
-				'id'            => 3,
-				'nom'           => 'Old Fashioned',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'60 ml de bourbon ou rye whisky',
-					'1 morceau de sucre',
-					'2 traits d’angostura bitters',
-					'Zeste d’orange',
-					'Glaçon gros format'
-				],
-				'date_creation' => '1880-05-15',
-				'description'   => 'Icône des classiques : un whisky subtilement sucré et aromatisé aux bitters.'
-			],
-		
-			4 => [
-				'id'            => 4,
-				'nom'           => 'Piña Colada',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'60 ml de rhum blanc',
-					'90 ml de jus d’ananas',
-					'30 ml de crème de coco',
-					'Glaçons'
-				],
-				'date_creation' => '1954-08-16',
-				'description'   => 'Spécialité portoricaine crémeuse et fruitée à base d’ananas et de coco.'
-			],
-		
-			5 => [
-				'id'            => 5,
-				'nom'           => 'Negroni',
-				'image'         => 'https://www.c6bo-plongee.fr/wp-content/uploads/2024/10/c6bo-voyage-blog-plongee-recettes-meilleurs-cocktails-Mai-Tai-steven-miller.jpg',
-				'ingredients'   => [
-					'30 ml de gin',
-					'30 ml de vermouth rouge',
-					'30 ml de Campari',
-					'Zeste d’orange',
-					'Glaçon gros format'
-				],
-				'date_creation' => '1919-06-01',
-				'description'   => 'Amertume élégante et notes d’agrumes pour ce grand classique italien.'
-			],
-		];
-
-		$cocktail = $cocktails[$id];
-
+		  // On passe l'objet cocktail au template Twig pour affichage
 		return $this->render('single-cocktail.html.twig', [
 			'cocktail' => $cocktail
 		]);
 
 	}
-
 
 }

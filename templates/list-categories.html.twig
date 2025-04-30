@@ -1,0 +1,23 @@
+ {% extends 'base.html.twig' %}
+
+ {% block metatitle %}
+ 
+ Liste des catégorie de cocktails
+ {% endblock metatitle %}
+
+{% block main %}
+
+{% for category in categories %}
+
+ <article>
+
+ <h2>{{ category.id }}</h2>
+ <p>{{ category.nom }}</p>
+ <p>{{ category.description }}</p>
+
+ </article>
+
+ {% endfor %}
+ </main>
+
+ {% endblock main %}

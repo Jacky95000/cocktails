@@ -1,17 +1,13 @@
-<?php
+<?php 
 
-namespace App\Controller;
+namespace App\Repository;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Attribute\Route;
+class CocktailRepository {
 
-class PageController extends AbstractController {
+    public function findAll() {
+    
 
-
-	#[Route('/', name: "home")]
-	public function displayHome() {
-		
-		$cocktails = [
+$cocktails = [
 			1 => [
 				'id'            => 1,
 				'nom'           => 'Mojito',
@@ -87,13 +83,12 @@ class PageController extends AbstractController {
 				'description'   => 'Amertume élégante et notes d’agrumes pour ce grand classique italien.'
 			],
 		];
+        return $cocktails;
+    }
+	public function findOneById($id) {
+		$cocktails = $this->findall();
+		$cocktail = $cocktails[$id];
 
-
-		$lastTwoCockails = array_slice($cocktails, -2, 2, true);
-
-
-		return $this->render('home.html.twig', ["cocktails" => $lastTwoCockails]);
-
+		return $cocktail;
 	}
 }
-

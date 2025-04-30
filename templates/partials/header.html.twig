@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Cocktails</title>
+	<title>{% block metatitle %}{% endblock metatitle %}</title>
 	<link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" />
 
 </head>
@@ -21,3 +21,13 @@
 		</nav>
 
 	</header>
+
+	{% include 'partials/aside-ad.html.twig' %}
+
+<main class="main">
+
+	{% block main %} 
+
+	{% endblock main %}
+
+</main>
