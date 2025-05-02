@@ -2,12 +2,14 @@
 // Déclaration de l'espace de nom (namespace) pour organiser ton code.
 namespace App\Controller;
 
+use App\Entity\Cocktail;
+
 // On importe le repository des cocktails qui sert à interroger les données.
 use App\Repository\CocktailRepository;
 
 // Classe de base pour les contrôleurs Symfony. Elle fournit des méthodes utiles comme render(), redirectToRoute(), etc.
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
+use Symfony\Component\HttpFoundation\Request;
 // Annotation pour définir les routes (utilisée avec PHP 8+)
 use Symfony\Component\Routing\Attribute\Route;
 
@@ -43,4 +45,20 @@ class CocktailController extends AbstractController {
 
 	}
 
+#[Route('/create-cocktail', name: "create-cocktail")]
+public function createCocktail(Request $request) {
+	
+
+if ($request->isMethod('POST')) {
+
+	$name = $request->request->get('name');
+	$ingredients = $request->request->get('ingredients');
+	$description = $request->request->get('description');
+	$image = $request->request->get('image');
+
+	$cocktail = new Cocktail($name, $description, $ingredients, $image);
+	$this->addFlash("success", "Cocktail : ". $cocktail->name . "enregistré");
+}
+return $this->render('create-cocktail.html.twig');
+}
 }

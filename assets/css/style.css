@@ -40,3 +40,11 @@ h1, h2 {
     width:20%;
     height: 100vh;
 }
+.success-message {
+    width:10%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    border-radius: 100%;
+    background-color: brown;
+}
