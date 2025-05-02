@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Entity;
+
 use Doctrine\ORM\Mapping as ORM;
 
+#[ORM\Entity()]
 class CocktailCategory {
 
-
-    #[ORM\Id]
+	#[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    public int $id;
+	public int $id;
 
 	#[ORM\Column(length: 255)]
 	public string $name;
@@ -19,4 +20,5 @@ class CocktailCategory {
 
 	#[ORM\Column(length: 255)]
 	public string $description;
+
 }
